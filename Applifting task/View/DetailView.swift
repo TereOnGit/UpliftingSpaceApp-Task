@@ -1,10 +1,3 @@
-//
-//  DetailView.swift
-//  Applifting task
-//
-//  Created by Terka on 05.04.2023.
-//
-
 import SwiftUI
 
 struct DetailView: View {
@@ -15,12 +8,19 @@ struct DetailView: View {
             Image("rocket")
             Text(launch.name)
                 .font(.system(size: 30, weight: .bold))
+                .foregroundColor(.white)
             if let detail = launch.details {
                 Text(detail)
+                    .foregroundColor(.white)
             } else {
                 Text("The details for this launch are not available at the moment.")
+                    .foregroundColor(.white)
             }
         }
+        .background(
+            Image("space")
+                .resizable()
+                .opacity(0.5))
     }
 }
 
