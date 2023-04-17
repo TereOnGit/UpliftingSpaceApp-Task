@@ -11,10 +11,15 @@ struct DetailView: View {
     var launch: Launch 
     
     var body: some View {
-        if let detail = launch.details {
-            Text(detail)
-        } else {
-            Text("The details for this launch are not available at the moment.")
+        VStack {
+            Image("rocket")
+            Text(launch.name)
+                .font(.system(size: 30, weight: .bold))
+            if let detail = launch.details {
+                Text(detail)
+            } else {
+                Text("The details for this launch are not available at the moment.")
+            }
         }
     }
 }

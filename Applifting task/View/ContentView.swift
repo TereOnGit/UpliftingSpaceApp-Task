@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var launch: [Launch] = []
+    @State private var searchText = ""
     
     var body: some View {
         NavigationView {
@@ -21,6 +22,7 @@ struct ContentView: View {
                 }
             }
         }
+        .searchable(text: $searchText)
         .toolbar {
             Text("Button")
         }
