@@ -5,6 +5,7 @@ struct ContentView: View {
     @State private var searchText = ""
     
     var body: some View {
+        
         NavigationView {
             List(launch) {
                 launch in
@@ -28,6 +29,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
