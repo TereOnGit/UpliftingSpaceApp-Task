@@ -1,9 +1,5 @@
 import Foundation
 
-// struct Crew: Decodable {
-//     let createdDate: Date
-// }
-
 class Network {
     
     static let decoder: JSONDecoder = {
@@ -22,13 +18,3 @@ class Network {
         return try decoder.decode([Launch].self, from: data)
     }
 }
-    
-//    static func getCrew() async -> [Crew] {
-//        do {
-//            let data = try await urlSession.data(from: URL(string: "https://api.spacexdata.com/v5/crew")!).0
-//            return try decoder.decode([Crew].self, from: data)
-//        } catch {
-//            return []
-//        }
-//    }
-
