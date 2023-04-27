@@ -1,31 +1,46 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var launch: [Launch] = []
+    @State var launches: [Launch] = []
     @State private var searchText = ""
     
+    private var searchedResults: [Launch] {
+        if searchText.isEmpty {
+            return launches
+        } else {
+            return launches.filter { launch in
+                launch.name.contains(searchText)
+            }
+        }
+    }
+    
     var body: some View {
-        
         NavigationView {
-            List(launch) {
-                launch in
+            List(searchedResults) { launch in
                 NavigationLink(destination: { DetailView(launch: launch)
                 }, label: {
-                    Text(launch.name)
+                    Row(launch: launch)
                 })
+                    .navigationBarTitle("List of all launches")
+                    .listRowBackground(Color("spaceLight"))
+                    .listRowSeparatorTint(Color("spaceBlue"))
             }
-            .navigationTitle("List of all launches")
-            .task {
-                do {
-                    self.launch = try await Network.getLaunches()
-                } catch {
-                    print(error)
+            .toolbar {
+                Button {
+                    
+                } label: {
+                    Text("Sort by")
                 }
+                .tint(.black)
             }
         }
         .searchable(text: $searchText)
-        .toolbar {
-            Text("Button")
+        .task {
+            do {
+                self.launches = try await Network.getLaunches()
+            } catch {
+                print(error)
+            }
         }
     }
 }

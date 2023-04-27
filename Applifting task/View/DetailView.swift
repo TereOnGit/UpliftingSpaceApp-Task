@@ -9,27 +9,37 @@ struct DetailView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 500, height: 900)
+                .ignoresSafeArea()
             VStack(spacing: 10) {
                 Text(launch.name)
                     .font(.system(size: 50, weight: .bold))
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
-                Spacer()
-                if let detail = launch.details {
-                    Text(detail)
-                        .foregroundColor(.white)
-                        .font(.system(size: 30))
-                } else {
-                    Text("The details for this launch are not available at the moment.")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30))
+                Buttons(launch: launch)
+                ScrollView {
+                    if let detail = launch.details {
+                        Text("Here are some details:")
+                            .foregroundColor(.white)
+                            .font(.system(size: 35, weight: .bold))
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                        Text(detail)
+                            .foregroundColor(.white)
+                            .font(.system(size: 30))
+                    } else {
+                        Text("Oops! Looks like the details for this launch are not available at the moment! But check it out later.")
+                            .foregroundColor(.white)
+                            .font(.system(size: 30))
+                    }
                 }
+                .multilineTextAlignment(.leading)
+                .lineSpacing(10)
+                .padding(.all, 40)
+                
             }
-            .frame(width: 400, height: 700)
-            .padding()
+            .padding(.vertical, 40)
         }
-        .ignoresSafeArea()
     }
 }
 
