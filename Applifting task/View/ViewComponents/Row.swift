@@ -1,10 +1,3 @@
-//
-//  Row.swift
-//  Applifting task
-//
-//  Created by Terka on 26.04.2023.
-//
-
 import SwiftUI
 
 struct Row: View {
