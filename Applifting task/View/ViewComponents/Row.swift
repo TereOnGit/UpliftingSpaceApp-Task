@@ -36,6 +36,8 @@ struct Row: View {
             .foregroundColor(.white)
             .padding()
         }
+        .background(Color("spaceLight"))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

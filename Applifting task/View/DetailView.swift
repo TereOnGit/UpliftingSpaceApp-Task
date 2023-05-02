@@ -3,22 +3,8 @@ import SwiftUI
 struct DetailView: View {
     var launch: Launch
     
-    private func formattedDay() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d. M. yyyy"
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "hh:mm:ss"
-        return dateFormatter.string(from: launch.dateUnix) + " at " + timeFormatter.string(from: launch.dateUnix)
-    }
-    
     var body: some View {
-        ZStack {
-            Image("space2")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 450, height: 900)
-                .ignoresSafeArea()
-            
+        ScrollView {
             VStack(spacing: 10) {
                 Text(launch.name)
                     .font(.system(size: 50, weight: .bold))
@@ -40,7 +26,9 @@ struct DetailView: View {
                 .font(.system(size: 25))
                 .foregroundColor(.white)
                 
-                ScrollView {
+                Spacer()
+                
+                Group {
                     if let detail = launch.details {
                         Text("Here are some details:")
                             .foregroundColor(.white)
@@ -49,6 +37,7 @@ struct DetailView: View {
                         Text(detail)
                             .foregroundColor(.white)
                             .font(.system(size: 25))
+                            .lineSpacing(10)
                     } else {
                         Text("Oops! Looks like the details for this launch are not available at the moment! But check it out later.")
                             .foregroundColor(.white)
@@ -57,18 +46,31 @@ struct DetailView: View {
                     }
                 }
                 .multilineTextAlignment(.center)
-                .lineSpacing(10)
-                .padding(.all, 40)
-                
+                .padding(.horizontal, 10)
             }
-            .padding(.vertical, 40)
         }
+        .frame(maxWidth: .infinity)
+        .background {
+            Image("space2")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+        }
+    }
+    
+    private func formattedDay() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d. M. yyyy"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "hh:mm:ss"
+        return dateFormatter.string(from: launch.dateUnix) + " at " + timeFormatter.string(from: launch.dateUnix)
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(launch: .launchWithoutDetails)
+.previewInterfaceOrientation(.landscapeLeft)
         DetailView(launch: .launchWithDetails)
     }
 }
